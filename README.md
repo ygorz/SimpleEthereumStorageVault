@@ -1,66 +1,18 @@
-## Foundry
+## Simple Ethereum Storage Vault
+## George Gorzhiyev
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A simple Ethereum storage vault where users can:
+- deposit and store Ethereum
+- retrieve stored deposits back to their wallet
+- check balance of stored money
+- check USD value of stored Ethereum, using Chainlink price feeds
 
-Foundry consists of:
+The goal of this project is to practice:
+- writing a simple and clean Smart Contract in Solidity
+- emit events when ethereum is stored or withdrawn
+- practicing NatSpec
+- create a deployment script along with a Helper Config to aid in testing and deployment of the contract
+- incorporate Chainlink price feeds for checking stored Ethereum value
+- writing a legible and clear README
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+Thank you for checking this simple project out! :)
