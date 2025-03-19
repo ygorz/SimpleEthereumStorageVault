@@ -21,6 +21,8 @@
 // private
 // view & pure functions
 
+import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
+
 pragma solidity ^0.8.18;
 
 /**
@@ -38,6 +40,7 @@ contract SimpleEthereumStorageVault {
     /*==================== STATE VARIABLES ====================*/
     address private immutable i_vaultOwner;
     mapping(address user => uint256 balance) private s_userBalances;
+    AggregatorV3Interface private s_priceFeed;
 
     /*==================== EVENTS =============================*/
     event DepositedEthereum(address indexed user, uint256 amount);
@@ -55,7 +58,8 @@ contract SimpleEthereumStorageVault {
     /**
      * @notice Constructor to set the owner of the vault
      */
-    constructor() {
+    constructor(address priceFeed) {
+        s_priceFeed = AggregatorV3Interface(priceFeed);
         i_vaultOwner = msg.sender;
     }
 
@@ -76,10 +80,13 @@ contract SimpleEthereumStorageVault {
      */
     function withdrawEthereum(uint256 amount) public moreThanZero(amount) {
         uint256 userBalance = getUserBalance(msg.sender);
+
+        if (userBalance == 0) {
+            revert SimpleEthereumStorageVault__UserHasNoBalance();
+        }
+
         if (amount > userBalance) {
             revert SimpleEthereumStorageVault__WithdrawalMoreThanBalance();
-        } else if (userBalance == 0) {
-            revert SimpleEthereumStorageVault__UserHasNoBalance();
         }
 
         s_userBalances[msg.sender] -= amount;
@@ -98,5 +105,20 @@ contract SimpleEthereumStorageVault {
      */
     function getUserBalance(address user) public view returns (uint256) {
         return s_userBalances[user];
+    }
+
+    /**
+     * Check the users balance in the vault and return the Usd value of it, using Chainlink price feeds
+     */
+    function getUsdValueOfUserEthBalance() public view returns (uint256) {
+        uint256 userBalance = getUserBalance(msg.sender);
+
+        if (userBalance == 0) {
+            revert SimpleEthereumStorageVault__UserHasNoBalance();
+        }
+
+        (, int256 price,,,) = s_priceFeed.latestRoundData();
+
+        return ((uint256(price) * 1e10) * userBalance) / 1e18;
     }
 }
