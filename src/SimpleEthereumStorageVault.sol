@@ -1,26 +1,5 @@
 // SPDX-License-Identifier: MIT
 
-// Layout of Contract:
-// version
-// imports
-// interfaces, libraries, contracts
-// errors
-// Type declarations
-// State variables
-// Events
-// Modifiers
-// Functions
-
-// Layout of Functions:
-// constructor
-// receive function (if exists)
-// fallback function (if exists)
-// external
-// public
-// internal
-// private
-// view & pure functions
-
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 
 pragma solidity ^0.8.18;
@@ -56,7 +35,8 @@ contract SimpleEthereumStorageVault {
 
     /*==================== FUNCTIONS ==========================*/
     /**
-     * @notice Constructor to set the owner of the vault
+     * @notice Constructor to set the owner of the vault and the Chainlink price feed
+     * @param priceFeed Chainlink price feed to get the USD value of Ethereum
      */
     constructor(address priceFeed) {
         s_priceFeed = AggregatorV3Interface(priceFeed);
