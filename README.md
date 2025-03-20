@@ -28,6 +28,7 @@ Thank you for checking it out :).
 ```
 git clone https://github.com/ygorz/SimpleEthereumStorageVault.git
 cd SimpleEthereumStorageVault
+code .
 forge build
 ```
 
