@@ -3,6 +3,7 @@
 pragma solidity ^0.8.18;
 
 import {Script} from "forge-std/Script.sol";
+import {console} from "forge-std/console.sol";
 import {SimpleEthereumStorageVault} from "src/SimpleEthereumStorageVault.sol";
 import {HelperConfig} from "script/HelperConfig.s.sol";
 
@@ -14,6 +15,7 @@ contract DeploySESVault is Script {
         vm.startBroadcast();
         SimpleEthereumStorageVault sesv = new SimpleEthereumStorageVault(priceFeed);
         vm.stopBroadcast();
+
         return sesv;
     }
 }
