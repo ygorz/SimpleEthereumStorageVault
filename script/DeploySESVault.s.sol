@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.18;
 
-import {Script} from "forge-std/Script.sol";
-import {console} from "forge-std/console.sol";
+import {Script} from "lib/forge-std/src/Script.sol";
+import {console} from "lib/forge-std/src/console.sol";
 import {SimpleEthereumStorageVault} from "src/SimpleEthereumStorageVault.sol";
 import {HelperConfig} from "script/HelperConfig.s.sol";
 
